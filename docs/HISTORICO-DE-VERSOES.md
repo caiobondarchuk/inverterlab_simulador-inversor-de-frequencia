@@ -4,8 +4,8 @@
 
 Simulador educacional do inversor de frequência Altus AD600M, executado inteiramente no navegador (um único arquivo HTML com CSS e JavaScript). Este documento registra, versão a versão, o que foi adicionado e como cada mudança foi implementada. As informações foram levantadas comparando o código-fonte de cada arquivo com o da versão anterior.
 
-- **Repositório:** https://github.com/caiobondarchuk/inverterlab_simulador-ad600m/
-- **Versão publicada (GitHub Pages):** https://caiobondarchuk.github.io/inverterlab_simulador-ad600m/
+- **Repositório:** https://github.com/caiobondarchuk/inverterlab_simulador-inversor-de-frequencia
+- **Versão publicada (GitHub Pages):** http://caiobondarchuk.github.io/inverterlab_simulador-inversor-de-frequencia/
 - **Desenvolvimento:** Caio Bondarchuk e Breno Rossi
 
 ---
