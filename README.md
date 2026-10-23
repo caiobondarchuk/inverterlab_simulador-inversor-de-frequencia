@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://caiobondarchuk.github.io/inverterlab_simulador-ad600m/" target="_blank">Acessar o InverterLab »</a>
+  <a href="http://caiobondarchuk.github.io/inverterlab_simulador-inversor-de-frequencia" target="_blank">Acessar o InverterLab »</a>
 
 ---
 
@@ -59,7 +59,7 @@ Todo o projeto roda num único arquivo HTML, direto no navegador, sem instalaç�
 
 Não é necessário instalar nada. Basta abrir o `index.html` em qualquer navegador moderno (Chrome, Edge, Firefox) — ou acessar a versão publicada:
 
-**[Acessar o InverterLab online »](https://caiobondarchuk.github.io/inverterlab_simulador-ad600m/)**
+**[Acessar o InverterLab online »](http://caiobondarchuk.github.io/inverterlab_simulador-inversor-de-frequencia)**
 
 Para rodar localmente a partir do repositório clonado, qualquer servidor estático funciona, por exemplo:
 
