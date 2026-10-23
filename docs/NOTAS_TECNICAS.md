@@ -10,11 +10,11 @@ O sistema funciona como uma bancada virtual, permitindo montar circuitos com sim
 
 Projeto online:
 
-- https://caiobondarchuk.github.io/inverterlab_simulador-ad600m/
+- https://caiobondarchuk.github.io/inverterlab_simulador-inversor-de-frequencia/
 
 Repositório:
 
-- https://github.com/caiobondarchuk/inverterlab_simulador-ad600m/
+- https://github.com/caiobondarchuk/inverterlab_simulador-inversor-de-frequencia
 
 ---
 
