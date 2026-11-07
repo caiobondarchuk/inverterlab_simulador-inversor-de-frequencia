@@ -26,6 +26,10 @@ Simulador educacional do inversor de frequência Altus AD600M, executado inteira
 | **InverterLab V1.1** | Remoção dos sensores, movimento de fios e revisão do AD600M |
 | **InverterLab V1.2** | Interface sem o modelo AD600M |
 | **InverterLab V1.3** | Brilho vermelho somente com corrente real e novo indicador de sentido |
+| **InverterLab V1.4** | Inspetor do motor, manual da IHM, Multimedidor, grade fixa e novos exemplos |
+| **InverterLab V1.5** | Inspetor sempre visível, manual em janela, grade alinhada e painel recolhível |
+| **InverterLab V1.5.1** | Aba do inspetor do motor e animação de rotação mais realista |
+| **InverterLab V1.5.2** | Disco quadriculado preto/branco no eixo do inspetor |
 
 ### Evolução em números
 
@@ -42,8 +46,12 @@ Simulador educacional do inversor de frequência Altus AD600M, executado inteira
 | InverterLab V10 | 422 KB | 3.689 | 171 | 574 | 23 + 7 alimentações |
 | InverterLab V1.1 | 451 KB | 4.210 | 136 | 562 | 26 (inclui 7 alimentações) + emenda |
 | InverterLab V1.2 | 460 KB | 4.224 | 136 | 562 | 27 (inclui 7 alimentações) + emenda |
+| InverterLab V1.4 | 499 KB | 4.668 | 228 | 575 | 27 (inclui 7 alimentações) + emenda |
+| InverterLab V1.5 | 506 KB | 4.790 | 237 | 575 | 27 (inclui 7 alimentações) + emenda |
+| InverterLab V1.5.1 | 507 KB | 4.818 | 239 | 575 | 27 (inclui 7 alimentações) + emenda |
+| InverterLab V1.5.2 | 507 KB | 4.817 | 239 | 575 | 27 (inclui 7 alimentações) + emenda |
 
-*Tamanho, linhas, funções JavaScript e parâmetros medidos nos arquivos de cada versão. Os 113 parâmetros da V03 à V10, os 574 do InverterLab V10 e os 562 do V1.1/V1.2 são códigos distintos (P0-00, P0-01 etc.).*
+*Tamanho, linhas, funções JavaScript e parâmetros medidos nos arquivos de cada versão. Os 113 parâmetros da V03 à V10, os 574 do InverterLab V10 e os 562 do V1.1/V1.2 são códigos distintos (P0-00, P0-01 etc.). Os 575 da V1.4, da V1.5, da V1.5.1 e da V1.5.2 incluem P9-09; P6-01, P6-02 e P6-03 seguem pendentes de definição na fonte.*
 
 ---
 
@@ -293,5 +301,110 @@ A remoção do modelo da interface foi feita substituindo apenas as strings vis�
 O solver elétrico continua resolvendo a condução e os potenciais como antes, mas agora devolve também a lista de arestas com origem, destino e tipo (fio ou componente). O cálculo de fluxo percorre essa lista, encontra os blocos biconectados e, para cada carga (bobina, lâmpada, buzina, potenciômetro ou motor), marca o caminho até a fonte. O editor usa esses conjuntos para colorir símbolos, terminais e fios.
 
 O indicador consulta o sentido efetivo do inversor e a rotação real do motor para exibir horário ou anti-horário.
+
+---
+
+## InverterLab V1.4 — Inspetor do motor, manual da IHM e Multimedidor
+
+**Arquivo:** `index.html`
+
+### O que foi adicionado
+
+- **Dica de uso na bancada:** a mensagem inferior foi redesenhada com fundo escuro, borda e fonte maior, permanece visível por **30 segundos a cada abertura** do sistema e depois se oculta. Ela indica os principais comandos e informa que todos os atalhos estão em **Ver > Ajuda & atalhos (F1)**. O mesmo texto foi repetido no topo da janela de ajuda.
+- **Grade fixa na tela:** o fundo quadriculado da bancada passou a ficar fixo em relação à janela, sem acompanhar pan e zoom, permanecendo sempre visível como referência. O botão “Grade” da barra rápida e o item “Alternar grade” do menu Ver foram removidos.
+- **Sinaleiros com a cor do usuário:** as lâmpadas piloto não ficam mais vermelhas pelo caminho de corrente. Elas acendem apenas na cor escolhida no inspetor, com brilho da mesma cor; terminais e fios do sinaleiro permanecem neutros.
+- **Inspetor automático do motor:** ao começar a girar, o motor abre um painel flutuante em um dos cantos direitos da bancada — escolhido no lado oposto ao motor, para não cobrir o componente — com o desenho do motor e um **disco preto/branco no eixo**, animado conforme a velocidade e o sentido. O painel mostra estado (acelerando, rodando, desacelerando ou falha), rpm, frequência de saída, sentido e carga, e fecha automaticamente quando o motor para.
+- **Aba Multimedidor:** a antiga aba **Osciloscópio** foi renomeada para **Multimedidor**, mantendo os gráficos em tempo real de frequência, corrente, tensão e velocidade.
+- **IHM com busca rápida e manual completo:** um toggle alterna entre os dois modos. A busca rápida passou a pesquisar por código, nome, descrição, unidade, grupo e texto das opções — por exemplo, “digital” encontra os parâmetros cuja descrição ou opção contenha o termo. O manual completo exibe o **Manual do Inversor de Frequência** interno, com 573 parâmetros visíveis (575 códigos na base), 29 grupos, índice lateral, busca interna, descrição, faixa, padrão, valor atual e opções, sem referências à Altus.
+- **Revisão de parâmetros:** adicionado **P9-09** (tempo de detecção de realimentação de velocidade anormal no SVC, padrão 5 s, faixa 0–100,0 s, 0 desativa). A opção “Ajuste digital” de **P2-15** passou a referenciar **P2-16**, que é o parâmetro real de ajuste digital; **P2-14** não existe na fonte e não foi criado. **P6-01, P6-02 e P6-03** permanecem intocados, aguardando uma fonte com a definição correta.
+- **Novos exemplos completos:** os três exemplos foram substituídos pelos circuitos e presets de parâmetros dos arquivos `partida simples via IHM.json`, `selo de contator alimentado pelo 24V do inversor.json` e `Comando a três fios FWD-REV-parada.json`. O carregamento usa `fitToContent()` para enquadrar circuitos com coordenadas negativas.
+- **Cor de vários fios de uma vez:** com dois ou mais fios selecionados (Ctrl+clique), o inspetor oferece um seletor de cor e a paleta de cores rápidas, que alteram todos os fios da seleção simultaneamente.
+
+### Correções e revisão técnica
+
+- **Contato auxiliar K1:** o contato passou a redesenhar quando a bobina de mesma TAG muda de estado. A assinatura de renderização (`sig`) agora inclui o estado da bobina (`coilOn`), corrigindo o caso em que o contato fechava eletricamente mas o desenho continuava aberto.
+- **Enquadramento ao carregar:** `fitToContent()` calcula os limites do circuito considerando a rotação dos componentes e ajusta escala e deslocamento; é chamado por `loadJSON`.
+- **Compatibilidade de projetos:** a migração preserva cores de fio válidas e volta ao preto quando o valor salvo não é hexadecimal.
+- **Cache offline:** o Service Worker passou a usar `inverterlab-1.4.0`.
+- **Documentação:** README, notas técnicas e histórico atualizados; a captura `03-osciloscopio.png` foi renomeada para `03-multimedidor.png`.
+
+### Como foi feito
+
+O inspetor do motor é um painel SVG próprio atualizado pelo laço de simulação: o ângulo do disco acumula `dt × rpm × 6` e o painel só é exibido enquanto a rotação absoluta passa de 2 rpm. A cor dos sinaleiros passou a vir de `props.color`, e o realce de corrente foi excluído do tipo `lampada-piloto` tanto no corpo quanto nos terminais. A grade permanece no `#ce-bgrect`, fora do grupo `#ce-viewport` que recebe pan/zoom.
+
+Na IHM, o modo de consulta é uma variável de estado (`quick` ou `manual`); o manual reutiliza a mesma base de `PARAMS` e gera os grupos, cartões e índice a partir de `PARAM_GROUPS`. A busca compartilha a normalização de acentos e o haystack de código, nome, descrição, unidade, grupo e opções. Os exemplos foram embutidos como objetos `circuit`/`params` extraídos dos JSONs e carregados por `CircuitEditor.loadJSON`.
+
+---
+
+## InverterLab V1.5 — Ajustes de usabilidade na bancada e no manual
+
+**Arquivo:** `index.html`
+
+### O que foi adicionado
+
+- **Inspetor do motor sempre visível na simulação:** o painel passou a abrir no instante em que a simulação é iniciada, mesmo com o motor ainda parado. Ele mostra o estado **PARADO** (ou **SEM MOTOR**, quando não há motor na bancada) e as leituras zeradas, permanece visível durante toda a simulação e ganhou um botão **×** no cabeçalho para o usuário fechá-lo. Ao parar e iniciar uma nova simulação, o painel volta a abrir automaticamente.
+- **Manual da IHM em janela flutuante:** o manual completo deixou de substituir o conteúdo da aba e passou a ser exibido em uma janela própria, com largura máxima de 1100 px e altura de até 80% da tela. A IHM permanece visível ao fundo. A janela mantém busca interna, índice de grupos e cartões de parâmetros, e fecha pelo **×**, pelo clique no fundo ou pela tecla **Esc**. O editor de parâmetro abre sobre o manual e, ao ser fechado, o manual continua aberto.
+- **Grade alinhada ao desenho:** o retângulo da grade foi movido para dentro do grupo `#ce-viewport`, que recebe pan e zoom. Assim, os pontos acompanham os componentes e permanecem alinhados às suas posições em qualquer escala, em vez de ficarem fixos à janela e desalinhados do circuito.
+- **Controle de exibição da grade:** voltaram o botão **Grade** na barra rápida e o item **Ver > Alternar grade**, permitindo ocultar e mostrar os pontos. O estado do botão acompanha a visibilidade.
+- **Painel de componentes recolhível:** o cabeçalho da paleta ganhou o botão **‹**, que recolhe o painel e expande a área do canvas. Quando recolhido, uma aba vertical **COMPONENTES** aparece na borda esquerda da bancada e reabre o painel com um clique.
+
+### Correções e revisão técnica
+
+- **Fechamento controlado do inspetor:** o painel distingue o fechamento automático do fechamento feito pelo usuário. Depois do **×**, ele não reaparece durante a simulação atual; o estado é limpo em `stopSim()` e em `startSim()`.
+- **Atualização eficiente do inspetor:** o estado e as linhas de leitura só são regravados no DOM quando o texto muda, evitando reconstruções a cada quadro quando o motor está parado.
+- **Cache offline:** o Service Worker passou a usar `inverterlab-1.5.0`.
+- **Documentação e capturas:** README, notas técnicas e histórico atualizados; as capturas `01-bancada.png` e `02-ihm.png` foram regeradas para mostrar o inspetor sempre visível, o painel recolhido e o manual em janela flutuante.
+
+### Como foi feito
+
+O inspetor consulta `running` e a flag `miUserClosed` no início de `updateMotorInspector()`: enquanto a simulação está ativa e o usuário não fechou o painel, ele é exibido e reposicionado no canto oposto ao motor. O estado é derivado de `inverter.fault`, `inverter.state` e `inverter.runCmd`; quando não há motor, as leituras são substituídas por uma mensagem explicativa.
+
+O manual foi separado do fluxo de renderização da IHM. `openManualModal()` monta `renderManualView()` dentro de `#manual-modal`, e `wireManualEvents()` registra busca, índice, cartões e fechamento. O editor de parâmetros continua usando o `#modal-backdrop` existente, que tem z-index superior ao da janela do manual.
+
+A grade é um `<rect>` dentro de `#ce-viewport`, antes dos grupos de fios e componentes. O estado `showGrid` controla `display` pelo botão da barra rápida e pelo menu Ver. A paleta usa `paletteCollapsed` e a classe `.collapsed`; a aba `#palette-tab` é exibida apenas nesse estado.
+
+---
+
+## InverterLab V1.5.1 — Aba do inspetor e animação de rotação
+
+**Arquivo:** `index.html`
+
+### O que foi adicionado
+
+- **Inspetor do motor recolhível:** o botão **×** do cabeçalho foi substituído por **›**. O painel deixa de ser fechado definitivamente durante a simulação: ele é recolhido e uma aba vertical **INSPETOR** aparece na borda direita da bancada, no mesmo padrão da aba **COMPONENTES**. Um clique na aba reabre o painel com as leituras atualizadas.
+- **Estado durante a simulação:** a aba permanece visível enquanto o inspetor estiver recolhido; ao reabrir o painel, ela desaparece. Ao parar a simulação, painel e aba são ocultados, e a simulação seguinte abre o painel automaticamente.
+- **Símbolo do motor estático na bancada:** a letra **M** do motor trifásico não gira mais durante a simulação. A indicação de rotação passou a ficar concentrada no inspetor.
+- **Animação de rotação mais realista no inspetor:** o disco do eixo passou a ter um único setor escuro com marca vermelha, deixando o sentido de giro visível. A velocidade visual acompanha a rotação real em baixas velocidades e é comprimida nas altas, evitando o efeito estroboscópico em que o disco parece girar ao contrário. Nas rotações elevadas, um desfoque de movimento dissolve o padrão em uma mancha cinza, como um eixo girando de verdade.
+
+### Correções e revisão técnica
+
+- **Cache offline:** o Service Worker passou a usar `inverterlab-1.5.1`.
+- **Documentação e captura:** README, notas técnicas e histórico atualizados; a captura `01-bancada.png` foi regerada com o novo botão de recolher e o disco do inspetor em alta rotação.
+
+### Como foi feito
+
+A flag `miUserClosed` foi renomeada para `miCollapsed` e a função `syncMotorInspector()` centraliza a visibilidade: o painel aparece quando `running && !miCollapsed`, e a aba `#mi-tab` aparece quando `running && miCollapsed`. Os cliques no botão **›** e na aba apenas alternam `miCollapsed` e chamam a sincronização. O estado é limpo em `startSim()` e em `stopSim()`.
+
+A rotação da letra **M** era aplicada em `tick()` ao grupo `#motor-rotor`; o grupo foi removido do símbolo e o bloco de atualização foi excluído. No inspetor, `miAngle` acumula a rotação visual: até 1 revolução por segundo o valor é fiel ao rpm; acima disso, a função `tanh` comprime a velocidade até o teto de 2,5 revoluções por segundo. O fator de desfoque cresce a partir de 120 rpm e satura em 1.120 rpm, reduzindo a opacidade do disco girante e revelando uma camada cinza estática (`#mi-blur`) que representa a área varrida.
+
+---
+
+## InverterLab V1.5.2 — Disco quadriculado no inspetor
+
+**Arquivo:** `index.html`
+
+### O que foi alterado
+
+- **Disco do eixo do inspetor:** o setor escuro único com marca vermelha foi substituído pelo padrão quadriculado preto/branco da versão anterior: quatro quadrantes alternados, com contorno preto, sem a marca vermelha. O desenho agora corresponde à imagem de referência do disco.
+- **Animação preservada:** a rotação visual fiel em baixas velocidades, a compressão por `tanh` nas altas e o desfoque de movimento (`#mi-blur`) continuam iguais. Em alta rotação o quadriculado se dissolve na mesma mancha cinza.
+
+### Correções e revisão técnica
+
+- **Cache offline:** o Service Worker passou a usar `inverterlab-1.5.2`.
+- **Documentação e captura:** README, notas técnicas e histórico atualizados; a captura `01-bancada.png` foi regerada com o disco quadriculado em alta rotação.
+
+### Como foi feito
+
+O grupo `#mi-disc` recebeu duas fatias opostas — `M150 60 L150 34 A26 26 0 0 0 124 60 Z` e `M150 60 L150 86 A26 26 0 0 0 176 60 Z` — preenchidas em `#111` sobre o círculo branco de contorno preto. A camada `#mi-blur` e toda a lógica de `miAngle` permaneceram inalteradas.
 
 ---
