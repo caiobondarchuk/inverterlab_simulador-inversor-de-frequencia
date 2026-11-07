@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="http://caiobondarchuk.github.io/inverterlab_simulador-inversor-de-frequencia" target="_blank">Acessar o InverterLab »</a><br>
-  <sub><strong>Versão atual:</strong> V1.3</sub>
+  <sub><strong>Versão atual:</strong> V1.5.2</sub>
 </p>
 
 ---
@@ -24,35 +24,40 @@ Todo o projeto roda num único arquivo HTML, direto no navegador, sem instalaç�
 
 ## Funcionalidades
 
-- **Bancada de montagem** com paleta de componentes organizada por categoria (Alimentação, Proteção, Inversor, Motor, Comando, Sinalização), usando simbologia elétrica padrão (NBR/IEC) — contatos NA/NF, bobinas de contator, disjuntores, motor trifásico, botoeiras, chave seletora, potenciômetro e sinaleiros.
-- **Fiação ortogonal** com emendas (nós), arraste de terminais, movimento de segmentos e vértices no estilo FluidSim, e desfazer/refazer enquanto a simulação está parada.
-- **Simulação elétrica em tempo real**: ao iniciar, o circuito é energizado e somente os trechos percorridos por corrente real — fios, terminais, contatos e cargas — ficam destacados em vermelho. Ramos abertos ou sem corrente permanecem neutros.
-- **Inversor AD600M completo**: réplica da IHM física (teclado PRG/SELETOR/RUN/STOP), navegação por grupos de parâmetros igual ao equipamento real, busca rápida de parâmetros, e um painel de controle que pode ser aberto a qualquer momento clicando no próprio inversor na bancada.
+- **Bancada de montagem** com paleta de componentes organizada por categoria (Alimentação, Proteção, Inversor, Motor, Comando, Sinalização), usando simbologia elétrica padrão (NBR/IEC) — contatos NA/NF, bobinas de contator, disjuntores, motor trifásico, botoeiras, chave seletora, potenciômetro e sinaleiros. O painel de componentes pode ser recolhido pelo botão **‹** e reaberto pela aba vertical **COMPONENTES** na borda da bancada.
+- **Grade de referência alinhada ao desenho** na bancada: os pontos acompanham o pan e o zoom junto com os componentes, permanecendo sempre alinhados às suas posições. A grade pode ser ocultada ou exibida pelo botão **Grade** da barra rápida e pelo item **Ver > Alternar grade**.
+- **Fiação ortogonal** com emendas (nós), arraste de terminais, movimento de segmentos e vértices no estilo FluidSim, e desfazer/refazer enquanto a simulação está parada. Com vários fios selecionados (Ctrl+clique), a cor de todos pode ser alterada de uma só vez.
+- **Simulação elétrica em tempo real**: ao iniciar, o circuito é energizado e somente os trechos percorridos por corrente real — fios, terminais, contatos e cargas — ficam destacados em vermelho. Ramos abertos ou sem corrente permanecem neutros. Os sinaleiros são a exceção: acendem apenas na cor escolhida pelo usuário e não recebem o vermelho do caminho de corrente.
+- **Inspetor do motor**: sempre que uma simulação é iniciada, um painel flutuante é aberto automaticamente — mesmo com o motor ainda parado — com o desenho do motor e um disco de eixo quadriculado preto/branco que gira conforme a velocidade e o sentido, com desfoque de movimento nas rotações altas para evitar o efeito estroboscópico. O painel mostra o estado (parado, acelerando, rodando, desacelerando, falha ou sem motor), rpm, frequência, sentido e carga. O símbolo do motor na bancada permanece estático. O painel permanece visível durante a simulação e pode ser recolhido pelo botão **›** no cabeçalho; uma aba vertical **INSPETOR** aparece então na borda direita da bancada e o reabre com um clique. Na próxima simulação ele volta a abrir automaticamente.
+- **Inversor AD600M completo**: réplica da IHM física (teclado PRG/SELETOR/RUN/STOP), navegação por grupos de parâmetros igual ao equipamento real, busca rápida ampliada e um painel de controle que pode ser aberto a qualquer momento clicando no próprio inversor na bancada.
+- **IHM com dois modos de consulta**: a **busca rápida** encontra parâmetros por código, nome, descrição, unidade, grupo ou texto das opções (por exemplo, “digital”); o **manual completo** exibe todos os parâmetros agrupados em uma janela flutuante de tamanho limitado — sem ocupar a tela inteira — com faixa, padrão, valor atual, opções, índice de grupos e busca interna. A janela fecha pelo **×**, pelo clique fora ou pela tecla **Esc**.
 - **Comando e I/O fiéis ao manual**: entradas digitais NPN (DI1–DI4 em relação ao COM), comando a dois e três fios, fonte 24V/COM disponível quando o inversor está energizado, e relé de saída TA/TB/TC configurável.
-- **Exemplos prontos**: partida via IHM, selo de contator alimentado pelo 24V do inversor e comando a três fios.
+- **Exemplos prontos**: partida via IHM, selo de contator alimentado pelo 24V do inversor e comando a três fios (FWD/REV/parada), com os circuitos e presets de parâmetros completos.
 - **Motor de indução trifásico parametrizável**: edite a plaqueta de dados (potência, tensão, corrente, frequência, velocidade, número de polos, fator de potência, rendimento) e veja o comportamento do motor responder de acordo.
 - **Indicador de operação**: mostra se a simulação está parada ou rodando, a frequência de saída e o sentido de rotação efetivo do motor (horário ou anti-horário).
-- **Osciloscópio**: gráficos em tempo real de frequência de saída, corrente, tensão e velocidade do motor.
+- **Multimedidor**: gráficos em tempo real de frequência de saída, corrente, tensão e velocidade do motor.
 - **Biblioteca de exercícios guiados**: montagens típicas (como partida via IHM) com verificação automática de objetivo atingido.
 - **Interface bilíngue** (Português / English), com tema claro e escuro.
 - **Funciona offline**: depois do primeiro acesso, o Service Worker mantém o simulador disponível sem internet — útil para uso em laboratórios ou salas sem rede estável.
 - **Salvar/abrir projetos** em `.json` e exportar o diagrama do circuito como imagem `.svg`.
 
+> Ao abrir o simulador, a dica de uso da bancada fica visível por 30 segundos e depois se oculta. A lista completa de atalhos está sempre disponível em **Ver > Ajuda & atalhos (F1)**.
+
 ## Capturas de tela
 
 <p align="center">
-  <img src="docs/screenshots/01-bancada.png" alt="Bancada com comando a três fios e motor em operação" width="820"><br>
-  <em>Bancada de montagem — comando a três fios (S1/S2/S3) e motor girando a 50 Hz no sentido horário; somente os trechos percorridos por corrente real ficam vermelhos.</em>
+  <img src="docs/screenshots/01-bancada.png" alt="Bancada com motor em operação, inspetor do motor e painel de componentes recolhido" width="820"><br>
+  <em>Bancada de montagem — motor em operação, inspetor do motor aberto automaticamente, grade alinhada ao desenho e painel de componentes recolhido com a aba COMPONENTES.</em>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/02-ihm.png" alt="IHM do inversor AD600M" width="820"><br>
-  <em>IHM & Parâmetros — réplica do teclado físico, navegação por grupos e busca rápida de parâmetros.</em>
+  <img src="docs/screenshots/02-ihm.png" alt="Manual completo da IHM em janela flutuante limitada" width="820"><br>
+  <em>IHM & Parâmetros — réplica do teclado físico, busca rápida e manual completo em janela flutuante limitada, com índice, busca interna e cartões de parâmetros.</em>
 </p>
 
 <p align="center">
-  <img src="docs/screenshots/03-osciloscopio.png" alt="Osciloscópio com gráficos em tempo real" width="820"><br>
-  <em>Osciloscópio — frequência, corrente, tensão e velocidade do motor em tempo real.</em>
+  <img src="docs/screenshots/03-multimedidor.png" alt="Multimedidor com gráficos em tempo real" width="820"><br>
+  <em>Multimedidor — frequência, corrente, tensão e velocidade do motor em tempo real.</em>
 </p>
 
 <p align="center">

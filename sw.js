@@ -1,6 +1,6 @@
 /* InverterLab — service worker (funciona offline depois do primeiro acesso).
    Ao publicar uma versão nova, troque o número em VERSION para forçar a atualização do cache. */
-const VERSION = 'inverterlab-1.3.0';
+const VERSION = 'inverterlab-1.5.2';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {
